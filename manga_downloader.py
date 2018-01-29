@@ -1,9 +1,7 @@
-import requests, os, urllib
+import requests, os
 from bs4 import BeautifulSoup
 from tqdm import tqdm
 from pathlib import Path
-from PIL import Image
-from io import BytesIO
 
 
 def get_manga_link(manga_site, manga_directory, manga_name) :
@@ -84,6 +82,7 @@ def download_chapters(chapter_link, chapter_dir, base_url, chapter_name):
 
 	list_of_links = []
 
+	print "[*] Getting The Necessary Information - Please Wait [*]"
 	for page_number in range(1,number_of_pages):
 		# Getting the page that contains the image and the next page/image
 		page_ = page.find('div', {'class' : 'page'})
@@ -170,6 +169,19 @@ def chapters_manager(manga_site, list_of_chapters, manga_name):
 					download_chapters(every_chapter[2], chapter_dir, base_url, every_chapter[0])
 
 if __name__ == '__main__':
+
+	print """
+  __  __                                                  
+ |  \/  | __ _ _ __   __ _  __ _                          
+ | |\/| |/ _` | '_ \ / _` |/ _` |                         
+ | |  | | (_| | | | | (_| | (_| |                         
+ |_|__|_|\__,_|_| |_|\__, |\__,_|             _           
+ |  _ \  _____      _|___/ | | ___   __ _  __| | ___ _ __ 
+ | | | |/ _ \ \ /\ / / '_ \| |/ _ \ / _` |/ _` |/ _ \ '__|
+ | |_| | (_) \ V  V /| | | | | (_) | (_| | (_| |  __/ |   
+ |____/ \___/ \_/\_/ |_| |_|_|\___/ \__,_|\__,_|\___|_|   
+                                                          
+	"""
 
 	manga_site = int(raw_input('Choose your manga website : \n[1] - MangaStream\n'))
 	if manga_site == 1:
