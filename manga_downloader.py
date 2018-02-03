@@ -74,7 +74,7 @@ def download_chapters(chapter_link, chapter_dir, base_url, chapter_name):
 	page = BeautifulSoup(requests.get(chapter_link).text,'html.parser')
 
 	# Getting the number of pages in the chapter
-	last_page = page.find_all('ul', {'class' : 'dropdown-menu'})[4].find_all('a')
+	last_page = page.find_all('ul', {'class' : 'dropdown-menu'})[3].find_all('a')
 	for every_element in last_page:
 		if "Last" in every_element.text:
 			# We search for the word 'last' because mangastreat uses it in the site
