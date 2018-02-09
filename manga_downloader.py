@@ -12,12 +12,27 @@ def get_manga_link(manga_site, manga_directory, manga_name):
         base_url = 'https://readms.net'
         # First we request all the link tags
         page_content = manga_directory.find('div', {'class': 'col-sm-8'})
-        link_tags = page_content.find_all('a')
         # Then we search in every tag for the name of the manga
+        td_tags = page_content.find_all('td')
+        list_of_link_tags = []
+        for every_td_tag in td_tags:
+            if "<strong>" in str(every_td_tag):
+                list_of_link_tags.append(every_td_tag)
+
         list_of_mangas = []
-        for every_link_tag in link_tags:
-            if manga_name.lower() in every_link_tag.text.lower():
-                list_of_mangas.append(every_link_tag)
+
+        # Checking weather the manga name is available and getting the list of mangas with that name
+        while True:
+            if manga_name != '':
+                for every_link_tag in list_of_link_tags:
+                    if manga_name.lower() in every_link_tag.text.lower():
+                        list_of_mangas.append(every_link_tag)
+
+            if not list_of_mangas:
+                print "no manga available with that name, try again\n"
+                manga_name = str(raw_input('Re-Enter the name of the manga you want to download :\n'))
+            else:
+                break
 
         print "\n[*] List of available mangas [*]\n"
         manga_number = 0
@@ -29,11 +44,11 @@ def get_manga_link(manga_site, manga_directory, manga_name):
         while True:
             try:
                 chosen_manga = int(raw_input())
-                manga_link = base_url + list_of_mangas[chosen_manga].get('href')
+                manga_link = base_url + list_of_mangas[chosen_manga].find('a').get('href')
                 manga_name = list_of_mangas[chosen_manga].text
                 break
-            except IndexError:
-                print "\nError\n"
+            except (IndexError, ValueError):
+                print "No manga available with that number, try again"
 
     # We remove the forbidden chars in windows dir naming
     forbidden_dir_chars_windows = ['/', '\\', ':', '*', '?', '"', '<', '>', '|']
@@ -118,7 +133,16 @@ def chapters_manager(manga_site, list_of_chapters, manga_name):
     print "\n\n[1] Download all available chapters."
     print "[2] Download latest chapter."
     print "[3] Specify chapters to download (Chapter number sperated by comma)."
-    action = int(raw_input('\nChoose an option : \n'))
+
+    while True:
+        try:
+            action = int(raw_input('\nChoose an option : \n'))
+            if action in (1, 2, 3):
+                break
+            else:
+                print "Option not available, try again"
+        except ValueError:
+            print "Option not available, try again"
 
     try:
         os.makedirs(manga_name)
@@ -184,7 +208,13 @@ if __name__ == '__main__':
  |____/ \___/ \_/\_/ |_| |_|_|\___/ \__,_|\__,_|\___|_|   
                                                           
 """
-    manga_site = int(raw_input('Choose your manga website : \n[1] - MangaStream\n'))
+    while True:
+        try:
+            manga_site = int(raw_input('Choose your manga website : \n[1] - MangaStream\n'))
+            break
+        except ValueError:
+            print "Website not available, try again"
+
     if manga_site == 1:
         manga_name = str(raw_input('Enter the name of the manga you want to download :\n'))
         manga_directory = BeautifulSoup(requests.get('https://readms.net/manga').text, 'html.parser')
