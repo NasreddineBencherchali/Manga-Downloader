@@ -132,7 +132,7 @@ def chapters_manager(manga_site, list_of_chapters, manga_name):
         if action == 1:
             for every_chapter in list_of_chapters:
                 # every_chapter is a tuple (chapter name[0], chapter number[1], chapter link[2])
-                chapter_dir = manga_name + '/' + every_chapter[0]
+                chapter_dir = manga_name + '/' + every_chapter[0].replace('.', '')
                 try:
                     os.makedirs(chapter_dir)
                 except OSError:
@@ -143,7 +143,7 @@ def chapters_manager(manga_site, list_of_chapters, manga_name):
         # Action 2 - Downloading the latest chapter
         elif action == 2:
             latest_chapter = list_of_chapters[0]
-            chapter_dir = manga_name + '/' + latest_chapter[0]
+            chapter_dir = manga_name + '/' + latest_chapter[0].replace('.', '')
             try:
                 os.makedirs(chapter_dir)
             except OSError:
@@ -161,7 +161,7 @@ def chapters_manager(manga_site, list_of_chapters, manga_name):
 
             for every_chapter in list_of_chapters:
                 if every_chapter[1] in list_of_specific_chapters:
-                    chapter_dir = manga_name + '/' + every_chapter[0]
+                    chapter_dir = manga_name + '/' + every_chapter[0].replace('.', '')
                     try:
                         os.makedirs(chapter_dir)
                     except OSError:
