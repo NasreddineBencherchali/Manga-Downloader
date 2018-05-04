@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 from pathlib import Path
 from tqdm import tqdm
 
+tqdm.monitor_interval = 0
 
 def get_manga_link(manga_site, manga_directory, manga_name):
     manga_link = ''
@@ -74,11 +75,14 @@ def list_of_available_chapters(manga_site, manga_link, manga_name):
         list_of_chapters = []
 
         for every_element in list_of_elements:
+            # Check if its a link to add it, otherwise we print the title and date 
             if every_element.find('a'):
                 chapter_name = every_element.text
+
+                # Remove characters that don't work in windows directory naming convention
+                chapter_name = chapter_name.replace(':', ' - ').replace('?', '').replace('!', '')
+                
                 # Create a tuple of (chapter name, chapter number, chapter link)
-                if ':' in chapter_name:
-                    chapter_name.replace(':', ' - ')
                 list_of_chapters.append((chapter_name, chapter_name.split(' ')[0].lstrip('0').encode('utf-8'),
                                          base_url + every_element.find('a').get('href').encode('utf-8')))
             else:
