@@ -2,7 +2,7 @@
 A python script that downloads the latest **Manga Chapters** from you favorite manga website.
 
 ### Script Requirements :
-* Python Modules : **Requests**, **BeautifulSoup**, **tqdm**.
+* Python Modules : **requests**, **beautifulsoup**, **tqdm**, **pathlib**.
 * Python 2.7.X
 
 ### Supported Websites :
