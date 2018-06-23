@@ -106,7 +106,7 @@ def download_chapters(chapter_link, chapter_dir, base_url, chapter_name):
     list_of_links = []
 
     print "[*] Getting The Necessary Information - Please Wait [*]"
-    for page_number in range(1, number_of_pages):
+    for page_number in range(1, number_of_pages + 1):
         # Getting the page that contains the image and the next page/image
         page_ = page.find('div', {'class': 'page'})
         # Building a generic link for the chapters
