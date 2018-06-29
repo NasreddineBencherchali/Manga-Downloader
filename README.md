@@ -1,13 +1,26 @@
-# Manga-Downloader
+# Manga-Downloader [![python](https://img.shields.io/badge/Python-2.7-green.svg?style=style=flat-square)](https://www.python.org/downloads/)  [![version](https://img.shields.io/badge/Version-Beta-blue.svg?style=style=flat-square)](https://twitter.com/nas_bench)
+
 A python script that downloads the latest **Manga Chapters** from you favorite manga website.
 
-### Script Requirements :
-* Python Modules : **requests**, **beautifulsoup**, **tqdm**, **pathlib**.
-* Python 2.7.X
+## Requirements
 
-### Supported Websites :
-* MangaStream. (https://readms.net/)
+* **requests**
+* **beautifulsoup**
+* **tqdm**
+* **pathlib**
 
-To use the script, use the following command:
+Install requirements :
 
-**python manga_downloader.py**
+```bash
+pip install -r Requirements.txt
+```
+
+## Supported Websites
+
+* [MangaStream](https://readms.net/)
+
+## Usage
+
+```bash
+python manga_downloader.py
+```
